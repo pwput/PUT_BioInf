@@ -2,8 +2,7 @@ package data
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
-import data.domain.ACharChain
-import data.domain.Oligonucleotide
+import data.domain.Cell
 
 @JacksonXmlRootElement(localName = "probe")
 class Probe {
@@ -11,5 +10,5 @@ class Probe {
     var pattern: String? = null
 
     @field:JacksonXmlProperty(localName = "cell")
-    lateinit var cellList: List<Oligonucleotide>
+    lateinit var cellList: List<Cell>
 }

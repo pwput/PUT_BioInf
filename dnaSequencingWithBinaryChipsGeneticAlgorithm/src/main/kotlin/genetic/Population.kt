@@ -1,7 +1,7 @@
-package genetic.domain
+package genetic
 
-class Population {
-    val populationList = mutableListOf<Specimen>()
+internal class Population {
+    private val populationList = mutableListOf<Specimen>()
 
     fun getPopulationFitness():Int{
         var tmpSumFitness = 0

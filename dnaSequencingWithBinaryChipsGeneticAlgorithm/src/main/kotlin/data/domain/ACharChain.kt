@@ -2,6 +2,8 @@ package data.domain
 
 abstract class ACharChain(val text: String) {
 
+    fun length() = this.text.length
+
     fun hasBestCoverage(top: ACharChain):Boolean{
         return getBestCoverage(top) == this.text.length - 1
     }

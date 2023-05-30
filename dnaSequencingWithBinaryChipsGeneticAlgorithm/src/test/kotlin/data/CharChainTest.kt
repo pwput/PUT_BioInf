@@ -1,17 +1,17 @@
 package data
 
-import data.domain.Oligonucleotide
+import data.domain.Cell
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
 
 internal class CharChainTest {
 
-    private val oli1 = Oligonucleotide("AAAAAD")
-    private val oli2 = Oligonucleotide("ABCDEF")
-    private val oli3 = Oligonucleotide("BCDEFG")
-    private val oli4 = Oligonucleotide("DDDDDD")
-    private val oli5 = Oligonucleotide("DD")
+    private val oli1 = Cell("AAAAAD")
+    private val oli2 = Cell("ABCDEF")
+    private val oli3 = Cell("BCDEFG")
+    private val oli4 = Cell("DDDDDD")
+    private val oli5 = Cell("DD")
 
     @Test
     fun hasBestCoverage1() {
