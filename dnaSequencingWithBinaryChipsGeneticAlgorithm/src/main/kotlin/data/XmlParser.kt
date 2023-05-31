@@ -6,7 +6,6 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import java.io.File
 
 class XmlParser {
-
     val dnaToParse = "<dna key=\"27405394\" length=\"500\" start=\"TAAATATTGTTGGGAAAAC\">\n" +
             "<probe pattern=\"ZZZZZZZZZZZZZZZZZZN\">\n" +
             "<cell>SSSSSSSSSWSWWSSWSWG</cell>\n" +

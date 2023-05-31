@@ -12,10 +12,10 @@ class CellChainConnectionTest {
 
     @Test
     fun getCoverageWithChainToRight1() {
-        assertEquals(4,ccc.getCoverageWithChainToRight())
+        assertEquals(2,ccc.coverage)
     }
     @Test
     fun getCoverageWithChainToRight2() {
-        assertEquals(null,cccl.getCoverageWithChainToRight())
+        assertEquals(null,cccl.coverage)
     }
 }
