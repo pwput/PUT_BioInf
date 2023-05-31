@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Assertions.*
 
 class CellChainConnectionTest {
 
-    private val ccc = CellChainConnection(CellChain("AAAAAD"), 2)
-    private val cccl = CellChainConnection(CellChain("AAAAAD"), null)
+    private val ccc = CellChainConnection(0,CellChain("AAAAAD"), 2)
+    private val cccl = CellChainConnection(1,CellChain("AAAAAD"), null)
 
     @Test
     fun getCoverageWithChainToRight1() {

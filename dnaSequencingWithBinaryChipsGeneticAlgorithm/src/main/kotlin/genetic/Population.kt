@@ -1,7 +1,6 @@
 package genetic
 
 import genetic.domain.CellChain
-import genetic.domain.ExperimentData
 import kotlin.random.Random
 
 internal class Population(private val cellChainList: List<CellChain>, private val dnaLength: Int) {
@@ -9,6 +8,24 @@ internal class Population(private val cellChainList: List<CellChain>, private va
 
     init {
         generateRandomPopulation()
+        runGeneration()
+    }
+
+    private fun runGeneration(){
+        sortPopulationByFitness()
+//        replaceBottomSpecimens(crossTopSpecimens())
+    }
+
+    private fun replaceBottomSpecimens(new:List<Specimen>){
+        if (new.isEmpty()) return
+    }
+
+//    private fun crossTopSpecimens():List<Specimen>{
+//
+//    }
+
+    private fun sortPopulationByFitness(){
+        populationList.sortBy { it.getFitness() }
     }
 
     private fun generateRandomPopulation(){
