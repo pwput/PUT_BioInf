@@ -5,5 +5,5 @@ object ExperimentConfiguration {
     const val maxGenerations = 50000
     const val maxGenerationsWithoutFitnessImprovement = 400
     const val fixedMutationChance = 0.1f
-
+    const val partOfAllIndexesToBeUsedInPopulationGeneration = 0.8f
 }

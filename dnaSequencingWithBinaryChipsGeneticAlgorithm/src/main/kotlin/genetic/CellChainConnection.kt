@@ -13,6 +13,6 @@ internal data class CellChainConnection(
     }
 
     fun recalculateCoverage(top: CellChain){
-        this.cellChain.getBestCoverage(top)
+        coverage = cellChain.getBestCoverage(top)
     }
 }

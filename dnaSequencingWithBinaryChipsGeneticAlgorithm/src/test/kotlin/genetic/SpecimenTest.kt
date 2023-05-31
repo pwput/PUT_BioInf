@@ -59,4 +59,17 @@ class SpecimenTest {
         val sp = Specimen(listOf(5,3,4,1,0))
         assertEquals("TCAGTTACGACA", sp.getSpecimenDna())
     }
+
+
+    @Test
+    fun mutate(){
+        val sp = Specimen(listOf(5,3,4,1,0))
+        sp.mutate()
+        sp.mutate()
+        sp.mutate()
+        sp.mutate()
+        sp.mutate()
+        sp.mutate()
+        sp.getSpecimenDna()
+    }
 }
