@@ -12,45 +12,111 @@ internal class Specimen(private val initIndexesList: List<Int>) {
     fun List<Int>.lastElement(): Int = this[this.size - 1]
 
 
-//    fun getChildren(partner: Specimen):List<Specimen>{
-//        val myListOfParts = sliceMe(getRandomCrossPoints(this))
-//        val partnersListOfParts = sliceMe(getRandomCrossPoints(partner))
-//
-//        val childCellChainConnection = myListOfParts[0] as MutableList
-//        childCellChainConnection.addAll(partnersListOfParts[1])
-//        childCellChainConnection.addAll(myListOfParts[2])
-//        childCellChainConnection.addAll(partnersListOfParts[3])
-//
-//        val tmp = mutableListOf<Int>()
-//
-//        for (c in childCellChainConnection){
-//            tmp.add(c.cellChain)
-//        }
-//
-//
-//
-//    }
+    fun isSame(other: Specimen)  = this.getSpecimenDna() == other.getSpecimenDna()
 
 
+    fun getChildren(partner: Specimen):List<Specimen>{
+        val list = mutableListOf<Specimen>()
 
-     fun sliceMe(list: List<Int>): List<List<CellChainConnection>>{
+        for (i in IntRange(0,5)){
+            list.addAll(getChildrenForRandomCrossPoints(partner))
+        }
+        return list
+    }
+
+    private fun getChildrenForRandomCrossPoints(partner: Specimen):List<Specimen>{
+        val myListOfParts = sliceMe(this.getRandomCrossPoints())
+        val partnersListOfParts = partner.sliceMe(partner.getRandomCrossPoints())
+
+        //first child a2c4
+        val childCellChainConnection = mutableListOf<CellChainConnection>()
+        childCellChainConnection.addAll(myListOfParts[0])
+        childCellChainConnection.addAll(partnersListOfParts[1])
+        childCellChainConnection.addAll(myListOfParts[2])
+        childCellChainConnection.addAll(partnersListOfParts[3])
+        val tmp = mutableListOf<Int>()
+        for (c in childCellChainConnection){
+            tmp.add(c.dataIndex)
+        }
+        val tmpRet = mutableListOf(Specimen(tmp))
+        //second child 1b3d
+        childCellChainConnection.clear()
+        childCellChainConnection.addAll(partnersListOfParts[0])
+        childCellChainConnection.addAll(myListOfParts[1])
+        childCellChainConnection.addAll(partnersListOfParts[2])
+        childCellChainConnection.addAll(myListOfParts[3])
+        tmp.clear()
+        for (c in childCellChainConnection){
+            tmp.add(c.dataIndex)
+        }
+        tmpRet.add(Specimen(tmp))
+
+        //third child a23d
+        childCellChainConnection.clear()
+        childCellChainConnection.addAll(myListOfParts[0])
+        childCellChainConnection.addAll(partnersListOfParts[1])
+        childCellChainConnection.addAll(partnersListOfParts[2])
+        childCellChainConnection.addAll(myListOfParts[3])
+        tmp.clear()
+        for (c in childCellChainConnection){
+            tmp.add(c.dataIndex)
+        }
+        tmpRet.add(Specimen(tmp))
+
+        //third child 1bc4
+        childCellChainConnection.clear()
+        childCellChainConnection.addAll(partnersListOfParts[0])
+        childCellChainConnection.addAll(myListOfParts[1])
+        childCellChainConnection.addAll(myListOfParts[2])
+        childCellChainConnection.addAll(partnersListOfParts[3])
+        tmp.clear()
+        for (c in childCellChainConnection){
+            tmp.add(c.dataIndex)
+        }
+        tmpRet.add(Specimen(tmp))
+
+        //delete duplications
+        for (i in tmpRet) {
+            i.deleteDuplications()
+            i.recalculateCoverage()
+        }
+        return tmpRet
+    }
+
+
+    private fun deleteDuplications(){
+        for (i in connections.indices){
+            var j = i +1
+            while (j < connections.size){
+                if (connections[i].isSame(connections[j]))
+                    connections.removeAt(j)
+                else
+                    j+=1
+            }
+        }
+    }
+
+
+     fun sliceMe(list: List<Int>): MutableList<List<CellChainConnection>>{
+        val slist = list.sorted()
         val tmpList = mutableListOf<List<CellChainConnection>>()
 
-        tmpList.add(this.connections.slice(0 until list[0]))
-        tmpList.add(this.connections.slice(list[0] until list[1]))
-        tmpList.add(this.connections.slice(list[1] until list[2]))
-        tmpList.add(this.connections.slice(list[2] until connections.size))
+        tmpList.add(this.connections.slice(0 .. slist[0]))
+        tmpList.add(this.connections.slice(slist[0]+1 .. slist[1]))
+        tmpList.add(this.connections.slice(slist[1]+1 .. slist[2]))
+        tmpList.add(this.connections.slice(slist[2]+1 until connections.size))
+
 
         return tmpList
     }
 
-     fun getRandomCrossPoints(specimen: Specimen): List<Int>{
+     fun getRandomCrossPoints(): List<Int>{
         val tmpList = mutableListOf<Int>()
-        var newPoint = Random.nextInt(1,specimen.connections.lastIndex())
+        var newPoint = Random.nextInt(0,connections.lastIndex())
         tmpList.add(newPoint)
 
         while (tmpList.size < 3){
-            newPoint = Random.nextInt(1,specimen.connections.lastIndex())
+            newPoint = Random.nextInt(0,connections.lastIndex())
             if (!tmpList.contains(newPoint)) tmpList.add(newPoint)
         }
         return tmpList
@@ -80,6 +146,14 @@ internal class Specimen(private val initIndexesList: List<Int>) {
                     null
                 )
             )
+    }
+
+
+    private fun recalculateCoverage(){
+        for (i in 0 .. connections.size -2){
+            connections[i].coverage = ExperimentData.cellChainList[connections[i].dataIndex].getBestCoverage(ExperimentData.cellChainList[connections[i+1].dataIndex])
+        }
+        connections[connections.lastIndex()].coverage = null
     }
 
     fun mutate() {

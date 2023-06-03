@@ -17,4 +17,7 @@ internal data class CellChainConnection(
     fun recalculateCoverage(top: CellChain){
         coverage = cellChain.getBestCoverage(top)
     }
+
+    fun isSame(other: CellChainConnection) = this.dataIndex == other.dataIndex
 }
+

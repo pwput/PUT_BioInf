@@ -20,5 +20,8 @@ class PopulationTest {
     fun init() {
         Experiment(list,10)
         val pop = Population(list,10)
+    val pop2 = pop
+    pop.runGeneration()
+
     }
 }

@@ -8,21 +8,40 @@ internal class Population(private val cellChainList: List<CellChain>, private va
 
     init {
         generateRandomPopulation()
-        runGeneration()
     }
 
-    private fun runGeneration(){
+    fun runGeneration(){
         sortPopulationByFitness()
-//        replaceBottomSpecimens(crossTopSpecimens())
+        replaceBottomSpecimens(crossTopSpecimens())
     }
 
     private fun replaceBottomSpecimens(new:List<Specimen>){
-        if (new.isEmpty()) return
+        val ret = removeParentsClones(new)
+
+        if (ret.isEmpty()) return
+
+        for ( i in ret.indices)
+        {
+            populationList[populationList.lastIndex - i] = ret[i]
+        }
     }
 
-//    private fun crossTopSpecimens():List<Specimen>{
-//
-//    }
+    private fun crossTopSpecimens():List<Specimen>{
+        return populationList[0].getChildren(populationList[1])
+    }
+
+    private fun removeParentsClones(new:List<Specimen>):List<Specimen>{
+        val ret = mutableListOf<Specimen>()
+        ret.addAll(new)
+        var i =0
+        while (i < ret.lastIndex){
+            if (ret[i].isSame(populationList[0]) || ret[i].isSame(populationList[1]))
+                ret.removeAt(i)
+            else
+                i+=1
+        }
+        return ret
+    }
 
     private fun sortPopulationByFitness(){
         populationList.sortBy { it.getFitness() }

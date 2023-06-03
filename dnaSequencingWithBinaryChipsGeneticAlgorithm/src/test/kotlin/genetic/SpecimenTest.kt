@@ -72,4 +72,12 @@ class SpecimenTest {
         sp.mutate()
         sp.getSpecimenDna()
     }
+
+    @Test
+    fun sliceMe() {
+        val sp = Specimen(listOf(5,3,4,1,0))
+        val list = listOf(0,1,3)
+        val slices = sp.sliceMe(list)
+        val slices2= slices
+    }
 }
