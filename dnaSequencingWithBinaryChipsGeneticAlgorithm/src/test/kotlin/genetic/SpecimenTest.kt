@@ -36,7 +36,7 @@ class SpecimenTest {
 
     @Test
     fun getSpecimenDna2() {
-        val sp = Specimen(listOf(2,1,3,5,4))
+        val sp = Specimen(listOf(1,2,0,3))
         assertEquals("ACGACAATACAGTT", sp.getSpecimenDna())
     }
     @Test
