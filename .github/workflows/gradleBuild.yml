@@ -13,8 +13,8 @@ jobs:
         distribution: temurin
         java-version: 11
         
-    - name: cd
-      run:  cd dnaSequencingWithBinaryChipsGeneticAlgorithm
+    - name: ls
+      run:  ls -l
         
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
