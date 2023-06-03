@@ -13,6 +13,9 @@ jobs:
         distribution: temurin
         java-version: 11
         
+    - name: cd
+      run:  cd dnaSequencingWithBinaryChipsGeneticAlgorithm
+        
     - name: ls
       run:  ls -l
         
