@@ -1,5 +1,7 @@
+import data.DnaDataParser
 import data.domain.ACharChain
 import data.XmlParser
+import genetic.Experiment
 
 fun main(args: Array<String>) {
     println("Hello World!")
@@ -8,10 +10,11 @@ fun main(args: Array<String>) {
 
     val dna = parser.parse()
 
-    println(dna.toString())
+    val chainlist = DnaDataParser.parse(dna)
 
+    chainlist.forEachIndexed { index, cellChain -> println(cellChain.text) }
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+    val experiment = Experiment(chainlist)
+
+    experiment.start(5000)
 }

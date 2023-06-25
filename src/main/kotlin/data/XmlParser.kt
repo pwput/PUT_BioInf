@@ -6,21 +6,6 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import java.io.File
 
 class XmlParser {
-    val dnaToParse = "<dna key=\"27405394\" length=\"500\" start=\"TAAATATTGTTGGGAAAAC\">\n" +
-            "<probe pattern=\"ZZZZZZZZZZZZZZZZZZN\">\n" +
-            "<cell>SSSSSSSSSWSWWSSWSWG</cell>\n" +
-            "<cell>SSSSSSSSWSWWSSWSWST</cell>\n" +
-            "<cell>SSSSSSSWSWWSSWSWSWC</cell>\n" +
-            "<cell>SSSSSSWSWWSSWSWSWST</cell>\n" +
-            "</probe>\n" +
-            "<probe pattern=\"PPPPPPPPPPPPPPPPPPN\">\n" +
-            "<cell>YYYYYYYYYYYYYRRRRYG</cell>\n" +
-            "<cell>YYYYYYYYYYYYYYRRRRC</cell>\n" +
-            "<cell>YYYYYYYYYYYYYYYRRRA</cell>\n" +
-            "<cell>YYYYYYYYYYYYYYYYRRG</cell>\n" +
-            "</probe>\n" +
-            "</dna>"
-
     val file = File("bio.xml")
 
     val xmlMapper = XmlMapper(

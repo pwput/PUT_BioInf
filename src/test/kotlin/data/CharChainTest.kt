@@ -12,7 +12,18 @@ internal class CharChainTest {
     private val oli3 = Cell("BCDEFG")
     private val oli4 = Cell("DDDDDD")
     private val oli5 = Cell("DD")
+    private val oli6 = Cell("DDDDfD")
+    private val oli7 = Cell("f")
+    private val oli8 = Cell("Df")
+    private val oli9 = Cell("D")
 
+
+    @Test
+    fun hasBestBihCoverage1() {
+        assertEquals(oli7.binaryMatch(oli6),true)
+        assertEquals(oli8.binaryMatch(oli6),true)
+        assertEquals(oli9.binaryMatch(oli6),false)
+    }
     @Test
     fun hasBestCoverage1() {
         assertEquals(oli2.hasBestCoverage(oli3),true)

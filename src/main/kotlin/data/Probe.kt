@@ -7,7 +7,7 @@ import data.domain.Cell
 @JacksonXmlRootElement(localName = "probe")
 class Probe {
     @field:JacksonXmlProperty(localName = "pattern")
-    var pattern: String? = null
+    lateinit var pattern: String
 
     @field:JacksonXmlProperty(localName = "cell")
     lateinit var cellList: List<Cell>

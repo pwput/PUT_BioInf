@@ -3,7 +3,7 @@ package genetic
 import genetic.domain.CellChain
 import kotlin.random.Random
 
-internal class Population(private val cellChainList: List<CellChain>, private val dnaLength: Int) {
+internal class Population(private val cellChainList: List<CellChain>) {
     private val populationList = mutableListOf<Specimen>()
 
     init {
@@ -12,14 +12,27 @@ internal class Population(private val cellChainList: List<CellChain>, private va
 
     fun runGeneration(){
         sortPopulationByFitness()
+        // populationList.forEachIndexed { index, specimen ->  println("Spno: $index, fitness:${specimen.getFitness()}")}
         replaceBottomSpecimens(crossTopSpecimens())
     }
 
+    fun getBestSpeciment():String{
+        sortPopulationByFitness()
+        return populationList[0].getSpecimenDna()
+    }
+
+    fun getBestSpecimentFitness():Int{
+        sortPopulationByFitness()
+        return populationList[0].getFitness()
+    }
+
     private fun replaceBottomSpecimens(new:List<Specimen>){
-        val ret = removeParentsClones(new)
+        var ret = removeParentsClones(new)
+
+        ret = ret.filter { it.getFitness() >= populationList[0].getFitness() }
+        //println("New speciments in this generation: ${ret.size}")
 
         if (ret.isEmpty()) return
-
         for ( i in ret.indices)
         {
             populationList[populationList.lastIndex - i] = ret[i]
@@ -27,7 +40,7 @@ internal class Population(private val cellChainList: List<CellChain>, private va
     }
 
     private fun crossTopSpecimens():List<Specimen>{
-        return populationList[0].getChildren(populationList[1])
+        return populationList[0].getChildren(populationList.filter { it.getFitness() > populationList[1].getFitness() * (1-ExperimentConfiguration.partOfPopulationThatCanBreed) }.random())
     }
 
     private fun removeParentsClones(new:List<Specimen>):List<Specimen>{
@@ -44,7 +57,7 @@ internal class Population(private val cellChainList: List<CellChain>, private va
     }
 
     private fun sortPopulationByFitness(){
-        populationList.sortBy { it.getFitness() }
+        populationList.sortByDescending { it.getFitness() }
     }
 
     private fun generateRandomPopulation(){
